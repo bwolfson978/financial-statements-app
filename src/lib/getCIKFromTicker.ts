@@ -1,4 +1,4 @@
-import companyTickers from '../data/company_tickers.json';
+import companyTickers from '../../data/company_tickers.json';
 
 interface CompanyInfo {
   cik_str: number;  // Note: this is actually a number in the JSON
