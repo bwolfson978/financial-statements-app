@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getCIKFromTicker } from '@/lib/getCIKFromTicker';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -9,25 +10,11 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`https://www.sec.gov/files/company_tickers.json`);
-    const data = await response.json();
+    const cik = getCIKFromTicker(ticker);
     
-    interface CompanyData {
-      cik_str: number;
-      ticker: string;
-      title: string;
-    }
-
-    // Find the company by ticker with proper typing
-    const company = Object.values(data).find((c: CompanyData) => 
-      c.ticker.toLowerCase() === ticker.toLowerCase()
-    );
-
-    if (!company) {
+    if (!cik) {
       return NextResponse.json({ error: 'Company not found' }, { status: 404 });
     }
-
-    const cik = company.cik_str.toString().padStart(10, '0');
     
     // Get the company's filings
     const filingsUrl = `https://data.sec.gov/submissions/CIK${cik}.json`;
