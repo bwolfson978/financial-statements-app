@@ -1,3 +1,6 @@
+This is a simple app that demonstrates fetching public company 10-K filings (annual financial reports) from the SEC EDGAR Database
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
